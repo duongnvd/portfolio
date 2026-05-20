@@ -372,7 +372,7 @@ export default function Home() {
                   <div className="relative isolate flex justify-center md:justify-start">
                     <div className="relative overflow-hidden rounded-full border-4 border-green-500 shadow-[0_0_25px_rgba(34,197,94,0.5)] z-30 w-40 h-40 md:w-44 md:h-44">
                       <Image
-                        src="/avatar.jpg"
+                        src="/portfolio/avatar.jpg"
                         alt="avatar"
                         fill
                         priority
@@ -409,14 +409,14 @@ export default function Home() {
 
                   {/* COMMAND LINE CALL-TO-ACTION BUTTONS */}
                   <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
-                    <a
-                      href="/DuongNVD_CV.pdf"
-                      download="DuongNVD_CV.pdf"
-                      className="
-                        bg-green-600 px-5 py-3 text-sm md:text-base font-bold text-black transition-all duration-200 block text-center
-                        hover:bg-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] select-none
-                      "
-                    >
+                      <a
+                        href="/portfolio/DuongNVD_CV.pdf"
+                        download="DuongNVD_CV.pdf"
+                        className="
+                          bg-green-600 px-5 py-3 text-sm md:text-base font-bold text-black transition-all duration-200 block text-center
+                          hover:bg-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] select-none
+                        "
+                      >
                       {t.btn_cv}
                     </a>
 
