@@ -17,12 +17,12 @@ const dict = {
     nav_projects: "[03. DỰ_ÁN]",
     hello: <>XIN CHÀO!<br />TÔI LÀ</>,
     role: "Quản trị Hệ thống & Hạ tầng",
-    bio: `
-- Quản trị viên hệ thống và hạ tầng CNTT với định hướng tự động hóa vận hành.
-- Làm việc với Windows Server, Ubuntu/Linux Server, Docker, Kubernetes và Database.
-- Triển khai, giám sát và xử lý sự cố hệ thống, mạng và hạ tầng CNTT.
-- Có kinh nghiệm monitoring với Zabbix, Grafana, Prometheus và CheckMK.
-    `,
+    bio: [
+      "Quản trị viên hệ thống và hạ tầng CNTT với định hướng tự động hóa vận hành.",
+      "Làm việc với Windows Server, Ubuntu/Linux Server, Docker, Kubernetes và Database.",
+      "Triển khai, giám sát và xử lý sự cố hệ thống, mạng và hạ tầng CNTT.",
+      "Có kinh nghiệm monitoring với Zabbix, Grafana, Prometheus và CheckMK."
+    ],
     education_node: "[EDUCATION_NODE_VERIFIED]",
     education_title: "CỬ NHÂN MẠNG MÁY TÍNH & TRUYỀN THÔNG DỮ LIỆU",
     education_school: "Trường Đại học Công nghệ Thông tin (UIT), ĐHQG-HCM",
@@ -90,12 +90,12 @@ const dict = {
     nav_projects: "[03. PROJECTS]",
     hello: "HELLO, I'M",
     role: "Infrastructure & Systems Administrator",
-    bio: `
-- System and infrastructure administrator with an automation-first mindset.
-- Working with Windows Server, Ubuntu/Linux Server, Docker, Kubernetes and databases.
-- Deploying, monitoring and troubleshooting systems, networks and IT infrastructure.
-- Experienced with Zabbix, Grafana, Prometheus and CheckMK monitoring solutions.
-    `,
+    bio: [
+      "System and infrastructure administrator with an automation-first mindset.",
+      "Working with Windows Server, Ubuntu/Linux Server, Docker, Kubernetes and databases.",
+      "Deploying, monitoring and troubleshooting systems, networks and IT infrastructure.",
+      "Experienced with Zabbix, Grafana, Prometheus and CheckMK monitoring solutions."
+    ],
     education_node: "[EDUCATION_NODE_VERIFIED]",
     education_title: "BACHELOR OF COMPUTER NETWORKS & DATA COMMUNICATION",
     education_school: "University of Information Technology (UIT), VNU-HCM",
@@ -243,7 +243,6 @@ const experiences = {
 export default function Home() {
   const [activeTab, setActiveTab] = useState("home");
   const [lang, setLang] = useState("en");
-  // Khởi tạo trạng thái đóng/mở ô thông tin liên hệ (Contact Modal)
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const t = dict[lang];
@@ -365,7 +364,7 @@ export default function Home() {
             <div className="grid grid-cols-1 gap-12 md:grid-cols-12 items-start relative">
               
               {/* CỘT TRÁI: HERO VÀ TIMELINE KINH NGHIỆM */}
-              <div className="md:col-span-7 space-y-16">
+              <div className="md:col-span-7 space-y-16 w-full">
                 
                 {/* KHỐI HERO INTRO */}
                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
@@ -394,9 +393,15 @@ export default function Home() {
                     </h3>
                   </div>
 
-                  <p className="max-w-xl whitespace-pre-line text-base md:text-lg leading-relaxed text-green-600 text-justify md:text-left">
-                    {t.bio}
-                  </p>
+                  {/* FIX LỖI THỤT THÒ CHỮ TRÊN MOBILE (Biến mảng string thành list li chuẩn lề trái) */}
+                  <ul className="max-w-xl font-mono text-base md:text-lg leading-relaxed text-green-600 text-left space-y-2 list-none pl-0">
+                    {t.bio.map((line, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="text-green-500 select-none">-</span>
+                        <span>{line}</span>
+                      </li>
+                    ))}
+                  </ul>
 
                   <div className="border border-green-900/60 bg-green-950/10 p-4 md:p-5 rounded max-w-xl font-mono text-[11px] md:text-xs space-y-1.5 shadow-[inset_0_0_10px_rgba(0,255,0,0.05)]">
                     <div className="text-green-400 font-bold flex items-center space-x-2">
@@ -409,18 +414,17 @@ export default function Home() {
 
                   {/* COMMAND LINE CALL-TO-ACTION BUTTONS */}
                   <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
-                      <a
-                        href="/portfolio/DuongNVD_CV.pdf"
-                        download="DuongNVD_CV.pdf"
-                        className="
-                          bg-green-600 px-5 py-3 text-sm md:text-base font-bold text-black transition-all duration-200 block text-center
-                          hover:bg-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] select-none
-                        "
-                      >
+                    <a
+                      href="/portfolio/DuongNVD_CV.pdf"
+                      download="DuongNVD_CV.pdf"
+                      className="
+                        bg-green-600 px-5 py-3 text-sm md:text-base font-bold text-black transition-all duration-200 block text-center
+                        hover:bg-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] select-none
+                      "
+                    >
                       {t.btn_cv}
                     </a>
 
-                    {/* NÚT BẤM KÍCH HOẠT HIỂN THỊ Ô LIÊN HỆ */}
                     <button 
                       onClick={() => setIsModalOpen(true)}
                       className="
@@ -466,9 +470,9 @@ export default function Home() {
 
               </div>
 
-              {/* CỘT PHẢI CHỨA TERMINAL CHẠY STICKY THEO LIÊN TỤC TAB 1 */}
-              <div className="hidden md:block md:col-span-5 h-full relative">
-                <div className="sticky top-44 flex justify-center animate-in fade-in duration-1000 delay-300">
+              {/* FIX LỖI KHÔNG HIỆN TERMINAL TRÊN MOBILE (Xếp dưới block info khi màn hình nhỏ, chạy sticky khi màn hình lớn) */}
+              <div className="md:col-span-5 w-full h-full relative mt-8 md:mt-0">
+                <div className="md:sticky md:top-44 w-full flex justify-center animate-in fade-in duration-1000 delay-300">
                   <Terminal />
                 </div>
               </div>
@@ -563,8 +567,8 @@ export default function Home() {
         </footer>
       </div>
 
-{/* =========================================================
-          SYSTEM CONTACT MODAL (Đã sửa đổi các icon chuẩn theme CLI)
+      {/* =========================================================
+          SYSTEM CONTACT MODAL
           ========================================================= */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
