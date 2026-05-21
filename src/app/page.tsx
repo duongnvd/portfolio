@@ -361,11 +361,11 @@ export default function Home() {
           
           {/* TAB 1: SECTION HOME & EXPERIENCE */}
           <section id="home-section" className="scroll-mt-48">
-            <div className="grid grid-cols-1 gap-12 md:grid-cols-12 items-start relative">
+            {/* TAO KHUNG FLEX LIEN TUC: Chạy dọc trên mobile, chia cột trên Desktop */}
+            <div className="flex flex-col md:grid md:grid-cols-12 gap-12 items-start relative">
               
-              {/* CỘT TRÁI ( md:col-span-7 ): ĐÓNG GÓI RIÊNG PHẦN HERO INTRO */}
-              <div className="md:col-span-7 space-y-6 w-full order-1">
-                {/* KHỐI HERO INTRO */}
+              {/* BLOCK 1: HERO INTRO (Luôn ở trên cùng) */}
+              <div className="w-full md:col-span-7 space-y-6">
                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
                   <div className="relative isolate flex justify-center md:justify-start">
                     <div className="relative overflow-hidden rounded-full border-4 border-green-500 shadow-[0_0_25px_rgba(34,197,94,0.5)] z-30 w-40 h-40 md:w-44 md:h-44">
@@ -392,6 +392,7 @@ export default function Home() {
                     </h3>
                   </div>
 
+                  {/* TEXT GIOI THIEU KHONG LOI THUT THO */}
                   <ul className="max-w-xl font-mono text-base md:text-lg leading-relaxed text-green-600 text-left space-y-2 list-none pl-0">
                     {t.bio.map((line, idx) => (
                       <li key={idx} className="flex items-start gap-2">
@@ -410,24 +411,18 @@ export default function Home() {
                     <p className="text-yellow-500 font-bold animate-pulse tracking-wide mt-1">&gt; {t.education_rank}</p>
                   </div>
 
+                  {/* CALL TO ACTIONS */}
                   <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
                     <a
                       href="/DuongNVD_CV.pdf"
                       download="DuongNVD_CV.pdf"
-                      className="
-                        bg-green-600 px-5 py-3 text-sm md:text-base font-bold text-black transition-all duration-200 block text-center
-                        hover:bg-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] select-none
-                      "
+                      className="bg-green-600 px-5 py-3 text-sm md:text-base font-bold text-black transition-all duration-200 block text-center hover:bg-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] select-none"
                     >
                       {t.btn_cv}
                     </a>
-
                     <button 
                       onClick={() => setIsModalOpen(true)}
-                      className="
-                        border-2 border-green-600 px-5 py-3 text-sm md:text-base font-bold transition-all duration-200
-                        hover:bg-green-900/20 hover:shadow-[0_0_15px_rgba(34,197,94,0.4)]
-                      "
+                      className="border-2 border-green-600 px-5 py-3 text-sm md:text-base font-bold transition-all duration-200 hover:bg-green-900/20 hover:shadow-[0_0_15px_rgba(34,197,94,0.4)]"
                     >
                       {t.btn_contact}
                     </button>
@@ -435,15 +430,15 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* CỘT PHẢI ( md:col-span-5 ): CHỨA TERMINAL - SỬ DỤNG HỆ THỐNG 'order-' ĐỂ ĐẨY LÊN TRÊN KINH NGHIỆM TRÊN MOBILE */}
-              <div className="md:col-span-5 w-full h-full relative mt-4 md:mt-0 order-2 md:order-3">
+              {/* BLOCK 2: TERMINAL WINDOW - Xuất hiện ngay dưới Hero trên Mobile, bay sang phải chạy sticky trên Desktop */}
+              <div className="w-full md:col-span-5 h-full relative md:absolute md:top-0 md:right-0 md:bottom-0 flex flex-col justify-start">
                 <div className="md:sticky md:top-44 w-full flex justify-center animate-in fade-in duration-1000 delay-300">
                   <Terminal />
                 </div>
               </div>
 
-              {/* KHỐI KINH NGHIỆM: ĐƯỢC TÁCH RIÊNG RA THÀNH CỘT RỘNG md:col-span-7, ÉP ORDER-3 ĐỂ NẰM DƯỚI TERMINAL TRÊN MOBILE */}
-              <div className="md:col-span-7 pt-8 order-3 md:order-2">
+              {/* BLOCK 3: WORK EXPERIENCE TIMELINE - Luôn nằm dưới cùng trên Mobile, căn đều lề trái dưới Hero trên Desktop */}
+              <div className="w-full md:col-span-7 pt-12 md:pt-20">
                 <h3 className="mb-10 text-2xl md:text-3xl font-bold text-green-400 text-center md:text-left">
                   {t.title_exp}
                 </h3>
