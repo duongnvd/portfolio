@@ -363,15 +363,14 @@ export default function Home() {
           <section id="home-section" className="scroll-mt-48">
             <div className="grid grid-cols-1 gap-12 md:grid-cols-12 items-start relative">
               
-              {/* CỘT TRÁI: HERO VÀ TIMELINE KINH NGHIỆM */}
-              <div className="md:col-span-7 space-y-16 w-full">
-                
+              {/* CỘT TRÁI ( md:col-span-7 ): ĐÓNG GÓI RIÊNG PHẦN HERO INTRO */}
+              <div className="md:col-span-7 space-y-6 w-full order-1">
                 {/* KHỐI HERO INTRO */}
                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
                   <div className="relative isolate flex justify-center md:justify-start">
                     <div className="relative overflow-hidden rounded-full border-4 border-green-500 shadow-[0_0_25px_rgba(34,197,94,0.5)] z-30 w-40 h-40 md:w-44 md:h-44">
                       <Image
-                        src="/portfolio/avatar.jpg"
+                        src="/avatar.jpg"
                         alt="avatar"
                         fill
                         priority
@@ -393,7 +392,6 @@ export default function Home() {
                     </h3>
                   </div>
 
-                  {/* FIX LỖI THỤT THÒ CHỮ TRÊN MOBILE (Biến mảng string thành list li chuẩn lề trái) */}
                   <ul className="max-w-xl font-mono text-base md:text-lg leading-relaxed text-green-600 text-left space-y-2 list-none pl-0">
                     {t.bio.map((line, idx) => (
                       <li key={idx} className="flex items-start gap-2">
@@ -412,10 +410,9 @@ export default function Home() {
                     <p className="text-yellow-500 font-bold animate-pulse tracking-wide mt-1">&gt; {t.education_rank}</p>
                   </div>
 
-                  {/* COMMAND LINE CALL-TO-ACTION BUTTONS */}
                   <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
                     <a
-                      href="/portfolio/DuongNVD_CV.pdf"
+                      href="/DuongNVD_CV.pdf"
                       download="DuongNVD_CV.pdf"
                       className="
                         bg-green-600 px-5 py-3 text-sm md:text-base font-bold text-black transition-all duration-200 block text-center
@@ -436,44 +433,43 @@ export default function Home() {
                     </button>
                   </div>
                 </div>
-
-                {/* KHỐI KINH NGHIỆM */}
-                <div className="pt-8">
-                  <h3 className="mb-10 text-2xl md:text-3xl font-bold text-green-400 text-center md:text-left">
-                    {t.title_exp}
-                  </h3>
-                  <div className="relative border-l-2 border-green-900 pl-6 md:pl-8 space-y-12">
-                    {experiences[lang].map((exp, i) => (
-                      <div key={i} className="relative">
-                        <div className="absolute -left-[31px] md:-left-[41px] top-2 h-4 w-4 rounded-full border-2 border-green-400 bg-[#05070a]" />
-                        <div className="border border-green-900 bg-green-950/10 p-5 transition-all duration-300 hover:border-green-400 hover:bg-green-950/20">
-                          <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                            <div>
-                              <h4 className="text-lg md:text-xl font-bold text-green-400">{exp.company}</h4>
-                              <p className="text-green-600 text-sm">{exp.role}</p>
-                            </div>
-                            <span className="text-[10px] md:text-xs text-green-700">{exp.time}</span>
-                          </div>
-                          <p className="mt-4 whitespace-pre-line text-xs md:text-sm leading-relaxed text-green-700">{exp.desc}</p>
-                          <div className="mt-5 flex flex-wrap items-center gap-2 text-[9px] md:text-[10px] text-green-500 uppercase">
-                            {["INFRA", "→", "MONITORING", "→", "SERVER", "→", "NETWORK", "→", "SECURITY"].map((tag, idx) => (
-                              <span key={idx} className={tag !== "→" ? "border border-green-800 px-1.5 py-0.5 md:px-2 md:py-1" : ""}>
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
               </div>
 
-              {/* FIX LỖI KHÔNG HIỆN TERMINAL TRÊN MOBILE (Xếp dưới block info khi màn hình nhỏ, chạy sticky khi màn hình lớn) */}
-              <div className="md:col-span-5 w-full h-full relative mt-8 md:mt-0">
+              {/* CỘT PHẢI ( md:col-span-5 ): CHỨA TERMINAL - SỬ DỤNG HỆ THỐNG 'order-' ĐỂ ĐẨY LÊN TRÊN KINH NGHIỆM TRÊN MOBILE */}
+              <div className="md:col-span-5 w-full h-full relative mt-4 md:mt-0 order-2 md:order-3">
                 <div className="md:sticky md:top-44 w-full flex justify-center animate-in fade-in duration-1000 delay-300">
                   <Terminal />
+                </div>
+              </div>
+
+              {/* KHỐI KINH NGHIỆM: ĐƯỢC TÁCH RIÊNG RA THÀNH CỘT RỘNG md:col-span-7, ÉP ORDER-3 ĐỂ NẰM DƯỚI TERMINAL TRÊN MOBILE */}
+              <div className="md:col-span-7 pt-8 order-3 md:order-2">
+                <h3 className="mb-10 text-2xl md:text-3xl font-bold text-green-400 text-center md:text-left">
+                  {t.title_exp}
+                </h3>
+                <div className="relative border-l-2 border-green-900 pl-6 md:pl-8 space-y-12">
+                  {experiences[lang].map((exp, i) => (
+                    <div key={i} className="relative">
+                      <div className="absolute -left-[31px] md:-left-[41px] top-2 h-4 w-4 rounded-full border-2 border-green-400 bg-[#05070a]" />
+                      <div className="border border-green-900 bg-green-950/10 p-5 transition-all duration-300 hover:border-green-400 hover:bg-green-950/20">
+                        <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                          <div>
+                            <h4 className="text-lg md:text-xl font-bold text-green-400">{exp.company}</h4>
+                            <p className="text-green-600 text-sm">{exp.role}</p>
+                          </div>
+                          <span className="text-[10px] md:text-xs text-green-700">{exp.time}</span>
+                        </div>
+                        <p className="mt-4 whitespace-pre-line text-xs md:text-sm leading-relaxed text-green-700">{exp.desc}</p>
+                        <div className="mt-5 flex flex-wrap items-center gap-2 text-[9px] md:text-[10px] text-green-500 uppercase">
+                          {["INFRA", "→", "MONITORING", "→", "SERVER", "→", "NETWORK", "→", "SECURITY"].map((tag, idx) => (
+                            <span key={idx} className={tag !== "→" ? "border border-green-800 px-1.5 py-0.5 md:px-2 md:py-1" : ""}>
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -583,21 +579,19 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Modal Content - Thay thế Emoji bằng ASCII/CLI Icons */}
+            {/* Modal Content */}
             <div className="space-y-4 text-green-400">
               
-              {/* LINE 1: TELEPHONE CHUYỂN THÀNH [TEL] */}
               <div className="flex items-center gap-4 border border-green-900/40 p-2.5 bg-green-950/10">
                 <span className="text-xs font-bold text-black bg-green-500 px-1.5 py-0.5 select-none rounded-sm">
                   TEL
                 </span>
                 <div>
                   <span className="text-[10px] text-green-700 block uppercase font-bold tracking-wider">Phone Link Connection</span>
-                  <a href="tel:0961314643" className="text-green-300 font-bold hover:underline tracking-wider">(+84) 985 373 677</a>
+                  <a href="tel:0985373677" className="text-green-300 font-bold hover:underline tracking-wider">(+84) 985 373 677</a>
                 </div>
               </div>
 
-              {/* LINE 2: EMAIL CHUYỂN THÀNH [MSG] */}
               <div className="flex items-center gap-4 border border-green-900/40 p-2.5 bg-green-950/10">
                 <span className="text-xs font-bold text-black bg-green-500 px-1.5 py-0.5 select-none rounded-sm">
                   MSG
@@ -608,25 +602,23 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* LINE 3: LINKEDIN CHUYỂN THÀNH [LN] */}
               <div className="flex items-center gap-4 border border-green-900/40 p-2.5 bg-green-950/10">
                 <span className="text-xs font-bold text-black bg-green-500 px-1.5 py-0.5 select-none rounded-sm">
                   LNK
                 </span>
                 <div>
                   <span className="text-[10px] text-green-700 block uppercase font-bold tracking-wider">LinkedIn Directory</span>
-                  <a href="https://linkedin.com/in/duongnvd24/" target="_blank" rel="noopener noreferrer" className="text-green-300 font-bold hover:underline tracking-tight break-all">linkedin.com/in/duongnvd</a>
+                  <a href="https://linkedin.com/in/duongnvd24/" target="_blank" rel="noopener noreferrer" className="text-green-300 font-bold hover:underline tracking-tight break-all">linkedin.com/in/duongnvd24/</a>
                 </div>
               </div>
 
-              {/* LINE 4: FACEBOOK CHUYỂN THÀNH [FB] */}
               <div className="flex items-center gap-4 border border-green-900/40 p-2.5 bg-green-950/10">
                 <span className="text-xs font-bold text-black bg-green-500 px-1.5 py-0.5 select-none rounded-sm">
                   SYS
                 </span>
                 <div>
                   <span className="text-[10px] text-green-700 block uppercase font-bold tracking-wider">Facebook Social Profile</span>
-                  <a href="https://facebook.com/duongnv24/" target="_blank" rel="noopener noreferrer" className="text-green-300 font-bold hover:underline tracking-tight break-all">facebook.com/duongnvd24</a>
+                  <a href="https://facebook.com/duongnv24/" target="_blank" rel="noopener noreferrer" className="text-green-300 font-bold hover:underline tracking-tight break-all">facebook.com/duongnv24/</a>
                 </div>
               </div>
 
