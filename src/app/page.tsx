@@ -361,16 +361,18 @@ export default function Home() {
           
           {/* TAB 1: SECTION HOME & EXPERIENCE */}
           <section id="home-section" className="scroll-mt-48">
-            {/* TAO KHUNG FLEX LIEN TUC: Chạy dọc trên mobile, chia cột trên Desktop */}
-            <div className="flex flex-col md:grid md:grid-cols-12 gap-12 items-start relative">
+            {/* GIỮ KHUNG LƯỚI GRID GỐC CHO DESKTOP ĐỂ TRÁNH LỖI ĐÈ NỀN CHỮ */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start relative">
               
-              {/* BLOCK 1: HERO INTRO (Luôn ở trên cùng) */}
-              <div className="w-full md:col-span-7 space-y-6">
+              {/* CỘT TRÁI (md:col-span-7): CHỨA HERO INTRO VÀ KINH NGHIỆM ĐỂ XẾP HÀNG CHUẨN */}
+              <div className="w-full md:col-span-7 space-y-16">
+                
+                {/* KHỐI HERO INTRO */}
                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
                   <div className="relative isolate flex justify-center md:justify-start">
                     <div className="relative overflow-hidden rounded-full border-4 border-green-500 shadow-[0_0_25px_rgba(34,197,94,0.5)] z-30 w-40 h-40 md:w-44 md:h-44">
                       <Image
-                        src="/avatar.jpg"
+                        src="/portfolio/avatar.jpg"
                         alt="avatar"
                         fill
                         priority
@@ -392,7 +394,7 @@ export default function Home() {
                     </h3>
                   </div>
 
-                  {/* TEXT GIOI THIEU KHONG LOI THUT THO */}
+                  {/* TEXT GIỚI THIỆU LỀ TRÁI GỌN GÀNG */}
                   <ul className="max-w-xl font-mono text-base md:text-lg leading-relaxed text-green-600 text-left space-y-2 list-none pl-0">
                     {t.bio.map((line, idx) => (
                       <li key={idx} className="flex items-start gap-2">
@@ -411,12 +413,15 @@ export default function Home() {
                     <p className="text-yellow-500 font-bold animate-pulse tracking-wide mt-1">&gt; {t.education_rank}</p>
                   </div>
 
-                  {/* CALL TO ACTIONS */}
-                  <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
+                  {/* BUTTONS */}
+                 <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
                     <a
-                      href="/DuongNVD_CV.pdf"
+                      href="/portfolio/DuongNVD_CV.pdf"
                       download="DuongNVD_CV.pdf"
-                      className="bg-green-600 px-5 py-3 text-sm md:text-base font-bold text-black transition-all duration-200 block text-center hover:bg-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] select-none"
+                      className="
+                        bg-green-600 px-5 py-3 text-sm md:text-base font-bold text-black transition-all duration-200 block text-center
+                        hover:bg-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] select-none
+                      "
                     >
                       {t.btn_cv}
                     </a>
@@ -428,43 +433,49 @@ export default function Home() {
                     </button>
                   </div>
                 </div>
-              </div>
 
-              {/* BLOCK 2: TERMINAL WINDOW - Xuất hiện ngay dưới Hero trên Mobile, bay sang phải chạy sticky trên Desktop */}
-              <div className="w-full md:col-span-5 h-full relative md:absolute md:top-0 md:right-0 md:bottom-0 flex flex-col justify-start">
-                <div className="md:sticky md:top-44 w-full flex justify-center animate-in fade-in duration-1000 delay-300">
+                {/* 1. KHỐI TERMINAL TRÊN MOBILE: Chỉ xuất hiện ở đây khi thu nhỏ di động dưới md (768px) */}
+                <div className="block md:hidden w-full mt-8">
                   <Terminal />
                 </div>
-              </div>
 
-              {/* BLOCK 3: WORK EXPERIENCE TIMELINE - Luôn nằm dưới cùng trên Mobile, căn đều lề trái dưới Hero trên Desktop */}
-              <div className="w-full md:col-span-7 pt-12 md:pt-20">
-                <h3 className="mb-10 text-2xl md:text-3xl font-bold text-green-400 text-center md:text-left">
-                  {t.title_exp}
-                </h3>
-                <div className="relative border-l-2 border-green-900 pl-6 md:pl-8 space-y-12">
-                  {experiences[lang].map((exp, i) => (
-                    <div key={i} className="relative">
-                      <div className="absolute -left-[31px] md:-left-[41px] top-2 h-4 w-4 rounded-full border-2 border-green-400 bg-[#05070a]" />
-                      <div className="border border-green-900 bg-green-950/10 p-5 transition-all duration-300 hover:border-green-400 hover:bg-green-950/20">
-                        <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                          <div>
-                            <h4 className="text-lg md:text-xl font-bold text-green-400">{exp.company}</h4>
-                            <p className="text-green-600 text-sm">{exp.role}</p>
+                {/* KHỐI KINH NGHIỆM (Luôn nằm ở dưới Hero và Terminal trên Mobile) */}
+                <div className="pt-8">
+                  <h3 className="mb-10 text-2xl md:text-3xl font-bold text-green-400 text-center md:text-left">
+                    {t.title_exp}
+                  </h3>
+                  <div className="relative border-l-2 border-green-900 pl-6 md:pl-8 space-y-12">
+                    {experiences[lang].map((exp, i) => (
+                      <div key={i} className="relative">
+                        <div className="absolute -left-[31px] md:-left-[41px] top-2 h-4 w-4 rounded-full border-2 border-green-400 bg-[#05070a]" />
+                        <div className="border border-green-900 bg-green-950/10 p-5 transition-all duration-300 hover:border-green-400 hover:bg-green-950/20">
+                          <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                            <div>
+                              <h4 className="text-lg md:text-xl font-bold text-green-400">{exp.company}</h4>
+                              <p className="text-green-600 text-sm">{exp.role}</p>
+                            </div>
+                            <span className="text-[10px] md:text-xs text-green-700">{exp.time}</span>
                           </div>
-                          <span className="text-[10px] md:text-xs text-green-700">{exp.time}</span>
-                        </div>
-                        <p className="mt-4 whitespace-pre-line text-xs md:text-sm leading-relaxed text-green-700">{exp.desc}</p>
-                        <div className="mt-5 flex flex-wrap items-center gap-2 text-[9px] md:text-[10px] text-green-500 uppercase">
-                          {["INFRA", "→", "MONITORING", "→", "SERVER", "→", "NETWORK", "→", "SECURITY"].map((tag, idx) => (
-                            <span key={idx} className={tag !== "→" ? "border border-green-800 px-1.5 py-0.5 md:px-2 md:py-1" : ""}>
-                              {tag}
-                            </span>
-                          ))}
+                          <p className="mt-4 whitespace-pre-line text-xs md:text-sm leading-relaxed text-green-700">{exp.desc}</p>
+                          <div className="mt-5 flex flex-wrap items-center gap-2 text-[9px] md:text-[10px] text-green-500 uppercase">
+                            {["INFRA", "→", "MONITORING", "→", "SERVER", "→", "NETWORK", "→", "SECURITY"].map((tag, idx) => (
+                              <span key={idx} className={tag !== "→" ? "border border-green-800 px-1.5 py-0.5 md:px-2 md:py-1" : ""}>
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+
+              {/* 2. KHỐI TERMINAL TRÊN DESKTOP: Chỉ xuất hiện và chạy bám dính sticky ở cột bên phải khi màn hình >= md (768px) */}
+              <div className="hidden md:block md:col-span-5 h-full relative">
+                <div className="sticky top-44 w-full flex justify-center animate-in fade-in duration-1000 delay-300">
+                  <Terminal />
                 </div>
               </div>
 
@@ -576,7 +587,6 @@ export default function Home() {
 
             {/* Modal Content */}
             <div className="space-y-4 text-green-400">
-              
               <div className="flex items-center gap-4 border border-green-900/40 p-2.5 bg-green-950/10">
                 <span className="text-xs font-bold text-black bg-green-500 px-1.5 py-0.5 select-none rounded-sm">
                   TEL
@@ -616,7 +626,6 @@ export default function Home() {
                   <a href="https://facebook.com/duongnv24/" target="_blank" rel="noopener noreferrer" className="text-green-300 font-bold hover:underline tracking-tight break-all">facebook.com/duongnv24/</a>
                 </div>
               </div>
-
             </div>
 
             {/* Modal Close Action Button */}
